@@ -1,0 +1,28 @@
+{
+  "name": "kanban",
+  "displayName": "Kanban Board",
+  "version": "1.0.0",
+  "description": "Columns, cards, drag and drop, labels, undo/redo. Runs entirely in the browser; served to ChatGPT and Claude as an MCP App.",
+  "architecture": "client-side-interactive-app",
+  "entry": "dist/index.html",
+  "source": "src/index.html",
+  "icon": "assets/icons/kanban.svg",
+  "runtime": {
+    "server": false,
+    "network": false,
+    "externalDependencies": false
+  },
+  "storage": {
+    "type": "localStorage",
+    "key": "kanban:v1",
+    "schemaVersion": 1,
+    "bestEffort": true,
+    "backup": "JSON export / import"
+  },
+  "mcp": {
+    "tool": "show_kanban_board",
+    "resource": "ui://kanban/board.html",
+    "http": "server/http.js",
+    "stdio": "server/stdio.js"
+  }
+}

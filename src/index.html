@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kanban</title>
+  <link rel="icon" href="../assets/icons/kanban.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo"><span data-icon="logo"></span></span>
+      <div class="brand-text">
+        <div class="title-row">
+          <h1 id="board-title">Kanban</h1>
+          <span id="save-status" class="badge" hidden
+                title="Browser storage is unavailable here. Changes last until you close the page. Use Export to keep a copy.">Not saved</span>
+        </div>
+        <p class="subtitle">Stay organized and get things done</p>
+      </div>
+    </div>
+    <div class="toolbar" role="toolbar" aria-label="Board actions">
+      <label class="search">
+        <span data-icon="search"></span>
+        <input type="search" id="search-input" placeholder="Search cards..." aria-label="Search cards" autocomplete="off">
+      </label>
+      <div class="btn-group">
+        <button type="button" class="btn icon-only" id="undo-btn" aria-label="Undo" title="Undo" aria-keyshortcuts="Control+Z Meta+Z"><span data-icon="undo"></span></button>
+        <button type="button" class="btn icon-only" id="redo-btn" aria-label="Redo" title="Redo" aria-keyshortcuts="Control+Shift+Z Meta+Shift+Z"><span data-icon="redo"></span></button>
+      </div>
+      <button type="button" class="btn" id="export-btn"><span data-icon="download"></span>Export</button>
+      <button type="button" class="btn" id="import-btn"><span data-icon="upload"></span>Import</button>
+      <input type="file" id="import-input" accept=".json,application/json" hidden>
+      <button type="button" class="btn" id="reset-btn" title="Reset to the starter board"><span data-icon="reset"></span>Reset</button>
+      <button type="button" class="btn icon-only theme-toggle" id="theme-btn" aria-label="Dark mode" aria-pressed="false">
+        <span data-icon="moon" class="icon i-moon"></span><span data-icon="sun" class="icon i-sun"></span>
+      </button>
+      <button type="button" class="btn primary" id="add-card-btn"><span data-icon="plus"></span>Add card</button>
+    </div>
+  </header>
+
+  <main id="board" aria-label="Board"></main>
+
+  <dialog id="card-dialog" aria-labelledby="card-dialog-title">
+    <form method="dialog" class="dialog-body" id="card-form">
+      <h2 id="card-dialog-title" class="dialog-title">Edit card</h2>
+      <label class="field"><span>Title</span>
+        <input name="title" required maxlength="500" autocomplete="off">
+      </label>
+      <label class="field"><span>Description</span>
+        <textarea name="description" rows="5" maxlength="10000"></textarea>
+      </label>
+      <fieldset class="field">
+        <legend>Labels</legend>
+        <div class="label-options" id="label-options"></div>
+      </fieldset>
+      <p class="meta" id="card-meta"></p>
+      <div class="dialog-actions">
+        <button type="button" class="btn danger" id="card-delete">Delete</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn" data-close>Cancel</button>
+        <button type="submit" class="btn primary" value="save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="column-dialog" aria-labelledby="column-dialog-title">
+    <form method="dialog" class="dialog-body" id="column-form">
+      <h2 id="column-dialog-title" class="dialog-title">Column settings</h2>
+      <label class="field"><span>Name</span>
+        <input name="title" required maxlength="200" autocomplete="off">
+      </label>
+      <div class="dialog-actions">
+        <button type="button" class="btn" id="column-left">← Move left</button>
+        <button type="button" class="btn" id="column-right">Move right →</button>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn danger" id="column-delete">Delete column</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn" data-close>Cancel</button>
+        <button type="submit" class="btn primary" value="save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="confirm-dialog" aria-labelledby="confirm-message">
+    <form method="dialog" class="dialog-body">
+      <p id="confirm-message" class="dialog-title"></p>
+      <div class="dialog-actions">
+        <span class="spacer"></span>
+        <button type="button" class="btn" data-close autofocus>Cancel</button>
+        <button type="submit" class="btn primary" value="confirm" id="confirm-ok">Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" hidden aria-hidden="true"></div>
+  <div id="live" aria-live="polite" class="sr-only"></div>
+
+</body>
+</html>
