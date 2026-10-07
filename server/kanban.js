@@ -22,7 +22,7 @@ export function createKanbanServer(html) {
         'Open the interactive Kanban board: columns, cards, labels, drag and drop, '
         + 'undo/redo, JSON export/import. Use when the user wants to plan, track or organise tasks '
         + 'on a board. The user edits the board directly; this tool only displays it.',
-      annotations: { readOnlyHint: true, openWorldHint: false },
+      annotations: { title: 'Show Kanban board', readOnlyHint: true, openWorldHint: false },
       _meta: { ui: { resourceUri: BOARD_URI } },
     },
     async () => ({
